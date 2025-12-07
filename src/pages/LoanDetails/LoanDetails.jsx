@@ -76,14 +76,13 @@ function LoanDetails() {
             </p>
 
             {/* ✅ APPLY BUTTON */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
+              
               className="w-full mt-5 btn btn-primary text-lg"
               onClick={() => alert("Loan application system coming soon! 🚀")}
             >
               Apply Now
-            </motion.button>
+            </button>
           </div>
 
           {/* Right Info */}
