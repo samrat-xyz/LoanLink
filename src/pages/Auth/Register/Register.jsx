@@ -1,5 +1,5 @@
 import React from "react";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
@@ -182,7 +182,7 @@ const Register = () => {
             onClick={handleGoogleRegister}
             className="btn bg-white text-black border-[#e5e5e5] flex items-center gap-2"
           >
-            Google Register
+          <FaGoogle />  Google Register
           </button>
         </div>
 

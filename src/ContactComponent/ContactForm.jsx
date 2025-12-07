@@ -19,6 +19,7 @@ export default function ContactForm() {
 
   const onSubmit = (data) => {
     Swal.fire({
+      theme: "dark",
       icon: "success",
       title: "Message Sent",
       text: "Your query has been submitted successfully!",

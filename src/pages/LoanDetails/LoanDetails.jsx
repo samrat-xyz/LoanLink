@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import LoansCategory from '../../components/LoansCategory/LoansCategory'
 import { motion } from "framer-motion"
+import Loading from '../../components/Loading/Loading'
 
 function LoanDetails() {
   const { id } = useParams()
@@ -18,7 +19,7 @@ function LoanDetails() {
   }, [id])
 
   if (loading) {
-    return <p className="text-center mt-20 text-xl font-semibold">Loading...</p>
+    return <Loading></Loading>
   }
 
   return (

@@ -1,21 +1,21 @@
 import React from "react";
 import { FaUser, FaLock } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
   const { loginUser, googleLogin } = useAuth();
-
+  const location = useLocation()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
- 
   const onSubmit = async (data) => {
     const { email, password } = data;
 
@@ -23,14 +23,14 @@ const Login = () => {
       await loginUser(email, password);
 
       Swal.fire({
-        theme: 'dark',
+        theme: "dark",
         icon: "success",
         title: "Login Successful!",
         showConfirmButton: false,
         timer: 1500,
       });
 
-      navigate("/");
+      navigate(location.state ? location.state:"/");
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -40,18 +40,17 @@ const Login = () => {
     }
   };
 
-
   const handleGoogleLogin = () => {
     googleLogin()
       .then(() => {
         Swal.fire({
-          theme: 'dark',
+          theme: "dark",
           icon: "success",
           title: "Google Login Success",
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/");
+        navigate(location.state ? location.state : "/")
       })
       .catch(() => {
         Swal.fire({
@@ -64,7 +63,9 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
-        <h2 className="text-3xl font-semibold text-center mb-6 text-black">Login</h2>
+        <h2 className="text-3xl font-semibold text-center mb-6 text-black">
+          Login
+        </h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Email */}
@@ -108,13 +109,16 @@ const Login = () => {
         </form>
 
         {/* Social Login */}
-        <div className="text-center mt-6 text-gray-500 text-sm">Or Login Using</div>
+        <div className="text-center mt-6 text-gray-500 text-sm">
+          Or Login Using
+        </div>
 
         <div className="flex justify-center mt-4">
           <button
             onClick={handleGoogleLogin}
             className="btn bg-white text-black border-[#e5e5e5] flex items-center gap-2"
           >
+            <FaGoogle />
             Google Login
           </button>
         </div>
