@@ -13,28 +13,30 @@ import useAuth from "../../hooks/useAuth";
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
 
-  const [theme, setTheme] = useState("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [theme, setTheme] = useState("light");
 
-  // Load theme from localStorage
+  // Load saved theme
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-    document.documentElement.setAttribute("data-theme", savedTheme);
+    const stored = localStorage.getItem("theme") || "light";
+    setTheme(stored);
+    document.documentElement.setAttribute("data-theme", stored);
   }, []);
 
-  // Theme Toggle
+  // Toggle theme
   const toggleTheme = () => {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    localStorage.setItem("theme", next);
-    document.documentElement.setAttribute("data-theme", next);
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
   };
 
   // Active Link Class
   const navClass = ({ isActive }) =>
     `font-medium relative transition ${
-      isActive ? "text-primary font-bold after:border-primary" : "hover:text-primary"
+      isActive
+        ? "text-primary font-bold after:border-primary"
+        : "hover:text-primary"
     }`;
 
   // Nav Links
@@ -121,11 +123,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-3">
-            
-           
-            <Link className="hover:text-blue-600">
-              Company News
-            </Link>
+            <Link className="hover:text-blue-600">Company News</Link>
             <span>/</span>
             <a href="#" className="hover:text-blue-600">
               FAQs
