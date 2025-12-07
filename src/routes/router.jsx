@@ -6,6 +6,7 @@ import Register from "../pages/Auth/Register/Register";
 import About from "../pages/About/About";
 import Loans from "../pages/Loans/Loans";
 import Contact from "../pages/Contact/Contact";
+import LoanDetails from "../pages/LoanDetails/LoanDetails";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path:'/contact-us',
         Component:Contact
+      },
+      {
+        path:'/loan-detail/:id',
+        Component:LoanDetails
       }
     ],
   },
