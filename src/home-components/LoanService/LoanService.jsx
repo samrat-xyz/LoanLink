@@ -33,7 +33,7 @@ function LoanServices() {
 
       
         <h2 className="text-4xl md:text-5xl font-bold text-base-content text-center mt-3">
-          All Loan Services
+          Loan Services
         </h2>
 
        
