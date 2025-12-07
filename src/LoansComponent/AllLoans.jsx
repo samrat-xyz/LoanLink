@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import LoansCard from "../../components/LoansCard/LoansCard";
-import Loading from "../../components/Loading/Loading";
+import LoansCard from "../components/LoansCard/LoansCard";
+import Loading from "../components/Loading/Loading";
 
-function LoanServices() {
+function AllLoans() {
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true); 
 
@@ -11,7 +11,7 @@ function LoanServices() {
     setLoading(true);
 
     axios
-      .get("http://localhost:3000/top-loans")
+      .get("http://localhost:3000/loans")
       .then((res) => {
         setLoans(res.data);
         setLoading(false); 
@@ -34,7 +34,7 @@ function LoanServices() {
 
       
         <h2 className="text-4xl md:text-5xl font-bold text-base-content text-center mt-3">
-          Loan Services
+        All  Loan Services
         </h2>
 
        
@@ -52,4 +52,4 @@ function LoanServices() {
   );
 }
 
-export default LoanServices;
+export default AllLoans;

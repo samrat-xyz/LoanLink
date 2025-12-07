@@ -3,6 +3,8 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
+import About from "../pages/About/About";
+import Loans from "../pages/Loans/Loans";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +15,14 @@ export const router = createBrowserRouter([
         index: true,
         Component: Home,
       },
+      {
+        path:'/about',
+        Component:About
+      },
+      {
+        path:'/all-loans',
+        Component:Loans
+      }
     ],
   },
   {
