@@ -5,6 +5,7 @@ import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import About from "../pages/About/About";
 import Loans from "../pages/Loans/Loans";
+import Contact from "../pages/Contact/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path:'/all-loans',
         Component:Loans
+      },
+      {
+        path:'/contact-us',
+        Component:Contact
       }
     ],
   },
