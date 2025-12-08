@@ -36,12 +36,7 @@ function Hero() {
               Connecting Your <br /> Loan Needs
             </h1>
             <div className="flex gap-4 flex-wrap">
-              <button
-                onClick={() => navigate("/apply-loan")}
-                className="btn btn-primary btn-lg"
-              >
-                Apply for Loan
-              </button>
+              
               <button
                 onClick={() => navigate("/all-loans")}
                 className="btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-primary"

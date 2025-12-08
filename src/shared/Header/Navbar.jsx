@@ -111,7 +111,8 @@ const Navbar = () => {
   );
 
   return (
-    <div className="sticky top-0 z-50 bg-base-100 shadow-sm">
+    <div >
+    <div className=" bg-base-100 shadow-sm">
       <div className="w-full border-b-2 border-gray-400 text-sm">
         <div className="container mx-auto flex items-center justify-between py-2 px-4">
           {/* Social */}
@@ -166,6 +167,7 @@ const Navbar = () => {
           <ul className="flex flex-col items-center gap-4">{links}</ul>
         </div>
       </div>
+    </div>
     </div>
   );
 };

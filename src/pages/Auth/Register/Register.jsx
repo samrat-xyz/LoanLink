@@ -102,7 +102,7 @@ const Register = () => {
               {...register("photo", { required: "Photo is required" })}
               type="file"
               accept="image/*"
-              className="w-full mt-2 text-sm cursor-pointer"
+              className="w-full mt-2 cursor-pointer text-sm text-black"
             />
             {errors.photo && (
               <p className="text-red-500 text-xs">{errors.photo.message}</p>
