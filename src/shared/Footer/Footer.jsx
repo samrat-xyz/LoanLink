@@ -10,7 +10,7 @@ const Footer = () => {
        
         <div>
           <h2 className="text-2xl font-bold text-primary mb-3">
-            MicroLoan-Hub
+            LoanLink
           </h2>
           <p className="text-base-content/70 mb-4">
             Smart & secure microloan request and approval tracking platform.
@@ -91,7 +91,7 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4">Contact</h3>
           <ul className="space-y-3 text-base-content/70">
             <li className="flex items-center gap-2">
-              <Mail size={16} /> support@microloanhub.com
+              <Mail size={16} /> support@LoanLink.com
             </li>
             <li className="flex items-center gap-2">
               <Phone size={16} /> +880 1234-567890
@@ -107,7 +107,7 @@ const Footer = () => {
       <div className="border-t border-base-300">
         <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-base-content/70">
           <p>
-            © {new Date().getFullYear()} MicroLoan-Hub. All rights reserved.
+            © {new Date().getFullYear()} LoanLink. All rights reserved.
           </p>
           <p>
             Developed by{" "}

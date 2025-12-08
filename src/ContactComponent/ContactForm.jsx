@@ -62,7 +62,7 @@ export default function ContactForm() {
           </div>
           <div>
             <h2 className="text-xl font-bold">Write Email</h2>
-            <p className="text-gray-600">support@microloanhub.com</p>
+            <p className="text-gray-600">support@LoanLink.com</p>
           </div>
         </div>
 

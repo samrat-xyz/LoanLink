@@ -13,12 +13,14 @@ export default function AboutUs() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-4">
         {/* Left Title */}
         <h2 className="text-4xl font-bold  leading-snug">
-          Few Words About Our <br /> MicroLoan-Hub
+          Few Words About Our <br /> LoanLink
+
+
         </h2>
 
         {/* Right Description */}
         <p className="leading-7 text-[15px]">
-          About our MicroLoan-Hub company — we provide quick and secure loan
+          About our LoanLink company — we provide quick and secure loan
           services to customers with a smooth and transparent process.
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco

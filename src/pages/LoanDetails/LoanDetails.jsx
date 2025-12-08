@@ -75,7 +75,7 @@ function LoanDetails() {
               <span className="font-semibold">Created By:</span> {loan.createdBy}
             </p>
 
-            {/* ✅ APPLY BUTTON */}
+            
             <button
               
               className="w-full mt-5 btn btn-primary text-lg"

@@ -146,7 +146,7 @@ const Navbar = () => {
 
       <div className="container mx-auto py-5 px-4">
         <div className="flex items-center justify-between">
-          <p className="text-2xl font-extrabold text-primary">MicroLoan-Hub</p>
+          <p className="text-2xl font-extrabold text-primary">LoanLink</p>
 
           <ul className="hidden md:flex items-center gap-8">{links}</ul>
 
