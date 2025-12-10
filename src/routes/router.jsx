@@ -9,6 +9,9 @@ import Contact from "../pages/Contact/Contact";
 import LoanDetails from "../pages/LoanDetails/LoanDetails";
 import PrivateRoutes from "./PrivateRoutes";
 import LoanApplicationForm from "../pages/LoanApplicationForm/LoanApplicationForm";
+import DashboardLayout from "../layouts/DashboardLayout";
+import DashboardManager from "../Dashboard/DashboardManager/DashboardManager";
+import DashboardBorrower from "../Dashboard/DashboardBorrower/DashboardBorrower";
 
 export const router = createBrowserRouter([
   {
@@ -50,4 +53,12 @@ export const router = createBrowserRouter([
     path: "/register",
     Component: Register,
   },
+  {
+    path:'/dashboard/borrower',
+    element:<PrivateRoutes><DashboardManager></DashboardManager></PrivateRoutes>
+  },
+  {
+    path:'/dashboard/manager',
+    element:<PrivateRoutes><DashboardBorrower></DashboardBorrower></PrivateRoutes>
+  }
 ]);

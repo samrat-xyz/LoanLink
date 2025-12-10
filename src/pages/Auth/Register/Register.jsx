@@ -5,6 +5,8 @@ import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../../utils";
 import Swal from "sweetalert2";
+import axios from "axios";
+
 const Register = () => {
   const navigate = useNavigate();
   const { googleLogin, updateUserProfile, createUser } = useAuth();
@@ -15,67 +17,95 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  
+  // ✅ Normal Register
   const onSubmit = async (data) => {
     const { fullName, photo, email, role, password } = data;
     const imageFile = photo[0];
 
     try {
-     
+      // ✅ Upload Image
       const imageURL = await imageUpload(imageFile);
 
-      
+      // ✅ Create Firebase User
       const result = await createUser(email, password);
 
-     
+      // ✅ Update Firebase Profile
       await updateUserProfile({
         displayName: fullName,
         photoURL: imageURL,
       });
 
+      // ✅ Save User in MongoDB with Role
+      const userInfo = {
+        name: fullName,
+        email,
+        role, // borrower / manager ✅
+        image: imageURL,
+        createdAt: new Date(),
+      };
+
+      await axios.post("http://localhost:3000/users", userInfo);
+
       Swal.fire({
-        theme: 'dark',
+        theme: "dark",
         icon: "success",
-        title: "Login Success",
+        title: "Registration Successful",
         showConfirmButton: false,
         timer: 1500,
       });
+
       navigate("/");
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
+        title: "Registration Failed",
+        text: error.message,
       });
     }
   };
 
-  // Google Register
-  const handleGoogleRegister = () => {
-    googleLogin()
-      .then(() => {
-        Swal.fire({
-          theme: 'dark',
-          icon: "success",
-          title: "Login Success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate("/");
-      })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
+  // ✅ Google Register
+  const handleGoogleRegister = async () => {
+    try {
+      const result = await googleLogin();
+
+      const user = result.user;
+
+      // ✅ Save Google User in DB (Default Role = borrower)
+      const userInfo = {
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+        role: "borrower", // ✅ default role
+        createdAt: new Date(),
+      };
+
+      await axios.post("http://localhost:3000/users", userInfo);
+
+      Swal.fire({
+        theme: "dark",
+        icon: "success",
+        title: "Login Successful",
+        showConfirmButton: false,
+        timer: 1500,
       });
+
+      navigate("/");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Google Login Failed",
+        text: err.message,
+      });
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
-        <h2 className="text-3xl font-semibold text-center mb-6 text-black">Register</h2>
+        <h2 className="text-3xl font-semibold text-center mb-6 text-black">
+          Register
+        </h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Full Name */}
@@ -91,7 +121,9 @@ const Register = () => {
               />
             </div>
             {errors.fullName && (
-              <p className="text-red-500 text-xs">{errors.fullName.message}</p>
+              <p className="text-red-500 text-xs">
+                {errors.fullName.message}
+              </p>
             )}
           </div>
 
@@ -105,7 +137,9 @@ const Register = () => {
               className="w-full mt-2 cursor-pointer text-sm text-black"
             />
             {errors.photo && (
-              <p className="text-red-500 text-xs">{errors.photo.message}</p>
+              <p className="text-red-500 text-xs">
+                {errors.photo.message}
+              </p>
             )}
           </div>
 
@@ -126,16 +160,20 @@ const Register = () => {
             )}
           </div>
 
-          {/* Role Dropdown */}
+          {/* ✅ ROLE DROPDOWN */}
           <div className="mb-4">
             <label className="text-gray-600 text-sm">Role</label>
             <select
-              {...register("role", { required: true })}
+              {...register("role", { required: "Role is required" })}
               className="w-full border-b border-gray-300 py-2 outline-none text-sm mt-1 bg-white"
             >
+              <option value="">Select Role</option>
               <option value="borrower">Borrower</option>
               <option value="manager">Manager</option>
             </select>
+            {errors.role && (
+              <p className="text-red-500 text-xs">Role is required</p>
+            )}
           </div>
 
           {/* Password */}
@@ -162,7 +200,9 @@ const Register = () => {
               />
             </div>
             {errors.password && (
-              <p className="text-red-500 text-xs">{errors.password.message}</p>
+              <p className="text-red-500 text-xs">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
@@ -182,7 +222,7 @@ const Register = () => {
             onClick={handleGoogleRegister}
             className="btn bg-white text-black border-[#e5e5e5] flex items-center gap-2"
           >
-          <FaGoogle />  Google Register
+            <FaGoogle /> Google Register
           </button>
         </div>
 
