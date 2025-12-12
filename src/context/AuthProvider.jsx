@@ -55,7 +55,7 @@ function AuthProvider({ children }) {
       setLoading(false);
     });
     return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
   const userInfo = {
     createUser,

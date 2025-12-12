@@ -1,9 +1,10 @@
 import React from 'react'
+import BorrowerNavbar from '../components/BorrowerNavbar/BorrowerNavbar'
 
 function DashboardBorrower() {
   return (
     <div>
-      Browwer
+      {/* <BorrowerNavbar></BorrowerNavbar> */}
     </div>
   )
 }

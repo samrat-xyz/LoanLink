@@ -1,45 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaUser, FaLock, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
-import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../../utils";
 import Swal from "sweetalert2";
 import axios from "axios";
+import useAuth from "../../../hooks/useAuth";
 
 const Register = () => {
   const navigate = useNavigate();
   const { googleLogin, updateUserProfile, createUser } = useAuth();
+  const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  // ✅ Normal Register
   const onSubmit = async (data) => {
+    setLoading(true);
     const { fullName, photo, email, role, password } = data;
     const imageFile = photo[0];
 
     try {
-      // ✅ Upload Image
       const imageURL = await imageUpload(imageFile);
+      await createUser(email, password);
+      await updateUserProfile({ displayName: fullName, photoURL: imageURL });
 
-      // ✅ Create Firebase User
-      const result = await createUser(email, password);
-
-      // ✅ Update Firebase Profile
-      await updateUserProfile({
-        displayName: fullName,
-        photoURL: imageURL,
-      });
-
-      // ✅ Save User in MongoDB with Role
       const userInfo = {
         name: fullName,
         email,
-        role, // borrower / manager ✅
+        role, // user selected role
         image: imageURL,
         createdAt: new Date(),
       };
@@ -56,27 +44,28 @@ const Register = () => {
 
       navigate("/");
     } catch (error) {
+      // Backend error (manager registration denied)
       Swal.fire({
         icon: "error",
         title: "Registration Failed",
-        text: error.message,
+        text: error.response?.data?.message || error.message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
-  // ✅ Google Register
   const handleGoogleRegister = async () => {
+    setLoading(true);
     try {
       const result = await googleLogin();
-
       const user = result.user;
 
-      // ✅ Save Google User in DB (Default Role = borrower)
       const userInfo = {
         name: user.displayName,
         email: user.email,
         image: user.photoURL,
-        role: "borrower", // ✅ default role
+        role: "borrower",
         createdAt: new Date(),
       };
 
@@ -97,15 +86,15 @@ const Register = () => {
         title: "Google Login Failed",
         text: err.message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
-        <h2 className="text-3xl font-semibold text-center mb-6 text-black">
-          Register
-        </h2>
+        <h2 className="text-3xl font-semibold text-center mb-6 text-black">Register</h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Full Name */}
@@ -120,14 +109,10 @@ const Register = () => {
                 className="w-full py-2 outline-none text-sm text-black"
               />
             </div>
-            {errors.fullName && (
-              <p className="text-red-500 text-xs">
-                {errors.fullName.message}
-              </p>
-            )}
+            {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName.message}</p>}
           </div>
 
-          {/* Photo Input */}
+          {/* Photo */}
           <div className="mb-4">
             <label className="text-gray-600 text-sm">Upload Photo</label>
             <input
@@ -136,11 +121,7 @@ const Register = () => {
               accept="image/*"
               className="w-full mt-2 cursor-pointer text-sm text-black"
             />
-            {errors.photo && (
-              <p className="text-red-500 text-xs">
-                {errors.photo.message}
-              </p>
-            )}
+            {errors.photo && <p className="text-red-500 text-xs">{errors.photo.message}</p>}
           </div>
 
           {/* Email */}
@@ -155,12 +136,10 @@ const Register = () => {
                 className="w-full py-2 outline-none text-black text-sm"
               />
             </div>
-            {errors.email && (
-              <p className="text-red-500 text-xs">{errors.email.message}</p>
-            )}
+            {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
           </div>
 
-          {/* ✅ ROLE DROPDOWN */}
+          {/* Role */}
           <div className="mb-4">
             <label className="text-gray-600 text-sm">Role</label>
             <select
@@ -171,9 +150,7 @@ const Register = () => {
               <option value="borrower">Borrower</option>
               <option value="manager">Manager</option>
             </select>
-            {errors.role && (
-              <p className="text-red-500 text-xs">Role is required</p>
-            )}
+            {errors.role && <p className="text-red-500 text-xs">{errors.role.message}</p>}
           </div>
 
           {/* Password */}
@@ -184,53 +161,30 @@ const Register = () => {
               <input
                 {...register("password", {
                   required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                  pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z]).+$/,
-                    message:
-                      "Password must contain 1 uppercase & 1 lowercase letter",
-                  },
+                  minLength: { value: 6, message: "Password must be at least 6 characters" },
+                  pattern: { value: /^(?=.*[a-z])(?=.*[A-Z]).+$/, message: "Password must contain 1 uppercase & 1 lowercase letter" },
                 })}
                 type="password"
                 placeholder="Create a password"
                 className="w-full py-2 outline-none text-sm"
               />
             </div>
-            {errors.password && (
-              <p className="text-red-500 text-xs">
-                {errors.password.message}
-              </p>
-            )}
+            {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
           </div>
 
-          {/* Register Button */}
-          <button className="w-full py-2 rounded-full bg-primary text-white font-semibold shadow-md hover:opacity-90 transition">
-            REGISTER
+          <button type="submit" disabled={loading} className="cursor-pointer w-full py-2 rounded-full bg-primary text-white font-semibold shadow-md hover:opacity-90 transition disabled:opacity-50">
+            {loading ? "Registering..." : "REGISTER"}
           </button>
         </form>
 
-        {/* Social Register */}
-        <div className="text-center mt-6 text-gray-500 text-sm">
-          Or Register Using
-        </div>
-
+        <div className="text-center mt-6 text-gray-500 text-sm">Or Register Using</div>
         <div className="flex justify-center mt-4">
-          <button
-            onClick={handleGoogleRegister}
-            className="btn bg-white text-black border-[#e5e5e5] flex items-center gap-2"
-          >
+          <button onClick={handleGoogleRegister} disabled={loading} className="btn bg-white text-black border-[#e5e5e5] flex items-center gap-2 disabled:opacity-50">
             <FaGoogle /> Google Register
           </button>
         </div>
 
-        {/* Login Link */}
-        <div className="text-center mt-8 text-gray-500 text-sm">
-          Already have an account?
-        </div>
-
+        <div className="text-center mt-8 text-gray-500 text-sm">Already have an account?</div>
         <button className="w-full mt-1 text-secondary font-semibold">
           <Link to="/login">LOGIN</Link>
         </button>

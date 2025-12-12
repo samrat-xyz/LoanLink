@@ -9,56 +9,106 @@ import Contact from "../pages/Contact/Contact";
 import LoanDetails from "../pages/LoanDetails/LoanDetails";
 import PrivateRoutes from "./PrivateRoutes";
 import LoanApplicationForm from "../pages/LoanApplicationForm/LoanApplicationForm";
-import DashboardLayout from "../layouts/DashboardLayout";
-import DashboardManager from "../Dashboard/DashboardManager/DashboardManager";
-import DashboardBorrower from "../Dashboard/DashboardBorrower/DashboardBorrower";
+import BorrowerLayout from "../layouts/BorrowerLayout";
+import BorrowerHome from "../Dashboard/BorrowerHome/BorrowerHome";
+import ManagerLayout from "../layouts/ManagerLayout";
+import ManagerHome from "../Dashboard/ManagerHome/ManagerHome";
+import ManagerAllLoans from "../Dashboard/components/Manager/ManagerAllLoans";
+import ManageUsers from "../Dashboard/components/Manager/ManageUsers";
+import MyProfile from "../Dashboard/DashboardBorrower/MyProfile";
+import MyAppliedLoan from "../Dashboard/DashboardBorrower/MyAppliedLoan";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: RootLayout,
+    element: <RootLayout />,   // ✅ Component না, element ব্যবহার করো
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home />,
       },
       {
-        path:'/about',
-        Component:About
+        path: "/about",
+        element: <About />,
       },
       {
-        path:'/all-loans',
-        Component:Loans
+        path: "/all-loans",
+        element: <Loans />,
       },
       {
-        path:'/contact-us',
-        Component:Contact
+        path: "/contact-us",
+        element: <Contact />,
       },
       {
-        path:'/loan-detail/:id',
-        element:<PrivateRoutes><LoanDetails></LoanDetails></PrivateRoutes>
+        path: "/loan-detail/:id",
+        element: (
+          <PrivateRoutes>
+            <LoanDetails />
+          </PrivateRoutes>
+        ),
       },
       {
-        path:'/apply-loan',
-        element:<LoanApplicationForm></LoanApplicationForm>
+        path: "/apply-loan",
+        element: <LoanApplicationForm />,
+      },
+    ],
+  },
+
+  {
+    path: "/login",
+    element: <Login />,
+  },
+
+  {
+    path: "/register",
+    element: <Register />,
+  },
+
+  
+  {
+    path: "/dashboard/borrower",
+    element: (
+      <PrivateRoutes>
+        <BorrowerLayout />
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        index: true,
+        element: <BorrowerHome />,
+      },
+      {
+        path:'/dashboard/borrower/profile/',
+        element:<MyProfile></MyProfile>
+      },
+      {
+        path:'/dashboard/borrower/my-applied-loan',
+        element:<MyAppliedLoan></MyAppliedLoan>
       }
-      
     ],
   },
   {
-    path: "/login",
-    Component: Login,
-  },
-  {
-    path: "/register",
-    Component: Register,
-  },
-  {
-    path:'/dashboard/borrower',
-    element:<PrivateRoutes><DashboardManager></DashboardManager></PrivateRoutes>
-  },
-  {
     path:'/dashboard/manager',
-    element:<PrivateRoutes><DashboardBorrower></DashboardBorrower></PrivateRoutes>
+    element:(
+      <PrivateRoutes><ManagerLayout></ManagerLayout></PrivateRoutes>
+    ),
+    children:[
+      {
+        index:true,
+        element:<ManagerHome></ManagerHome>
+      },
+      {
+        path:'/dashboard/manager/all-loans',
+        element:<ManagerAllLoans></ManagerAllLoans>
+      },
+      {
+        path:'/dashboard/manager/manage-users',
+        element:<ManageUsers></ManageUsers>
+      },
+      {
+        path:'/dashboard/manager/profile',
+        element:<MyProfile></MyProfile>
+      }
+    ]
   }
 ]);
