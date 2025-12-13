@@ -17,11 +17,14 @@ import ManagerAllLoans from "../Dashboard/components/Manager/ManagerAllLoans";
 import ManageUsers from "../Dashboard/components/Manager/ManageUsers";
 import MyProfile from "../Dashboard/DashboardBorrower/MyProfile";
 import MyAppliedLoan from "../Dashboard/DashboardBorrower/MyAppliedLoan";
+import CreateLoans from "../Dashboard/components/Manager/CreateLoans";
+import ErrorPage from "../components/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,   // ✅ Component না, element ব্যবহার করো
+    element: <RootLayout />,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
@@ -108,6 +111,10 @@ export const router = createBrowserRouter([
       {
         path:'/dashboard/manager/profile',
         element:<MyProfile></MyProfile>
+      },
+      {
+        path:'/dashboard/manager/create-loans',
+        element:<CreateLoans></CreateLoans>
       }
     ]
   }

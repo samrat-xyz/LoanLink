@@ -52,7 +52,7 @@ function BorrowerNavbar() {
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 bg-base-100">
           <Outlet />
         </div>
       </div>

@@ -68,13 +68,13 @@ function ManageUsers() {
   };
 
   return (
-    <div>
+    <div className=" h-screen">
       <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
 
       <div className="overflow-x-auto">
         <table className="table w-full border">
           <thead>
-            <tr className="bg-gray-200">
+            <tr className="bg-base-200">
               <th>Name</th>
               <th>Email</th>
               <th>Current Role</th>

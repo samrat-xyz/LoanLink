@@ -145,7 +145,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <div className="flex gap-1 items-center">
               <MdEmail className="text-blue-500" />
-              <span>needhelp@company.com</span>
+              <span>support@LoanLink.com</span>
             </div>
 
             <div className="hidden md:flex gap-1 items-center">
@@ -171,7 +171,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* ✅ MOBILE MENU */}
+        {/*  MOBILE MENU */}
         <div
           className={`md:hidden bg-base-100 rounded-lg shadow-md mt-3 transition-all duration-300 ${
             isMenuOpen ? "max-h-96 p-4" : "max-h-0 overflow-hidden"

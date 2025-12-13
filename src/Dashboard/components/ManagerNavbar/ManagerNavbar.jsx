@@ -6,9 +6,11 @@ import useAuth from "../../../hooks/useAuth";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { SiHomebridge } from "react-icons/si";
+import { LuGitPullRequestCreate } from "react-icons/lu";
+import Loading from "../../../components/Loading/Loading";
 
 function ManagerNavbar() {
-  const { user, logoutUser } = useAuth();
+  const { user, logoutUser,loading } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -29,7 +31,10 @@ function ManagerNavbar() {
       <div className="drawer-content flex flex-col">
         <div className="navbar bg-base-300">
           <div className="flex-none lg:hidden">
-            <label htmlFor="manager-drawer" className="btn btn-square btn-ghost">
+            <label
+              htmlFor="manager-drawer"
+              className="btn btn-square btn-ghost"
+            >
               <RxHamburgerMenu />
             </label>
           </div>
@@ -55,8 +60,8 @@ function ManagerNavbar() {
         </div>
 
         {/* PAGE CONTENT */}
-        <div className="p-6">
-          <Outlet />
+        <div className="p-6 bg-base-100">
+          <Outlet></Outlet>
         </div>
       </div>
 
@@ -65,9 +70,7 @@ function ManagerNavbar() {
         <label htmlFor="manager-drawer" className="drawer-overlay"></label>
 
         <div className="w-64 min-h-full bg-base-200 p-4">
-          <h2 className="text-xl font-bold text-primary mb-6">
-            Manager Panel
-          </h2>
+          <h2 className="text-xl font-bold text-primary mb-6">Manager Panel</h2>
 
           <ul className="menu gap-2">
             <li>
@@ -90,9 +93,21 @@ function ManagerNavbar() {
                 All Loan Applications
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/dashboard/manager/create-loans"
+                className={navClass}
+              >
+                <LuGitPullRequestCreate size={18} />
+                Create Loans
+              </NavLink>
+            </li>
 
             <li>
-              <NavLink to="/dashboard/manager/manage-users" className={navClass}>
+              <NavLink
+                to="/dashboard/manager/manage-users"
+                className={navClass}
+              >
                 <Users size={18} />
                 Manage Users
               </NavLink>

@@ -60,7 +60,7 @@ function MyProfile() {
 
   return (
     <div className="max-w-lg mx-auto mt-12">
-      <div className="p-8 rounded-2xl shadow-xl bg-white/60 backdrop-blur-xl">
+      <div className="p-8 rounded-2xl shadow-xl bg-base-100 h-screen backdrop-blur-xl">
 
         {/* Profile Photo */}
         <div className="flex justify-center relative">
@@ -80,7 +80,7 @@ function MyProfile() {
         </p>
 
         {/* Card info */}
-        <div className="mt-6 bg-gray-50  rounded-xl p-5">
+        <div className="mt-6 bg-base-100  rounded-xl p-5">
           
           <p className="mt-2 text-gray-700"><strong>Last Login:</strong> {user?.metadata?.lastSignInTime}</p>
         </div>

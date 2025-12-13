@@ -29,9 +29,7 @@ function ManagerAllLoans() {
     }
   };
 
-  // -------------------------
-  // 🌟 Update Loan Status
-  // -------------------------
+  // Update Loan Status
   const updateStatus = async (id, status) => {
     try {
       await axios.patch(`http://localhost:3000/applied-loan/${id}`, {
