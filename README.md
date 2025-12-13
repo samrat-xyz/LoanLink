@@ -7,7 +7,7 @@ This platform allows borrowers to apply for loans easily, while managers can rev
 
 ## 🌐 Live Website
 
-🔗 **Live Link:** *(Add your deployed site link here)*
+🔗 **Live Link:** https://loan-link-web.netlify.app/
 
 
 ---
