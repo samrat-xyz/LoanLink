@@ -72,7 +72,7 @@ const LoanApplicationForm = () => {
       reset();
       
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       Swal.fire({
         icon: "error",
         title: "Submission Failed",

@@ -16,7 +16,7 @@ function ManageUsers() {
         const filtered = data.filter((u) => u.email !== currentEmail);
         setUsers(filtered);
       })
-      .catch((err) => console.error(err));
+      // .catch((err) => console.error(err));
   }, [currentEmail]);
 
   // Delete User

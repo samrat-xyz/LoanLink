@@ -17,7 +17,7 @@ function AllLoans() {
         setLoading(false); 
       })
       .catch((err) => {
-        console.error(err);
+        // console.error(err);
         setLoading(false); 
       });
   }, []);
