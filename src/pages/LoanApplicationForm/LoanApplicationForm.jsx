@@ -28,7 +28,7 @@ const LoanApplicationForm = () => {
     );
   }
 
-  //  Form Submit
+  //  Form Submit /
   const onSubmit = async (data) => {
     if (!user) {
       Swal.fire({
