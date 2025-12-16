@@ -1,5 +1,9 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay, EffectCoverflow } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
 
 const testimonials = [
   {
@@ -26,13 +30,37 @@ const testimonials = [
       "I applied for a startup loan and got approval without any hassle. Highly recommended!",
     image: "https://randomuser.me/api/portraits/men/75.jpg",
   },
+  {
+    id: 4,
+    name: "Farhana Akter",
+    role: "Teacher",
+    review:
+      "I got a small loan for my personal project. The support team guided me throughout. Excellent experience!",
+    image: "https://randomuser.me/api/portraits/women/68.jpg",
+  },
+  {
+    id: 5,
+    name: "Kamal Hossain",
+    role: "Entrepreneur",
+    review:
+      "Fast approval and very transparent process. I am impressed with MicroLoan-Hub.",
+    image: "https://randomuser.me/api/portraits/men/45.jpg",
+  },
+  {
+    id: 6,
+    name: "Nadia Islam",
+    role: "Designer",
+    review:
+      "Perfect platform for freelancers like me. Easy, reliable, and very user-friendly.",
+    image: "https://randomuser.me/api/portraits/women/21.jpg",
+  },
 ];
 
 const Testimonial = () => {
   return (
     <section className="py-16 bg-base-100">
       <div className="container mx-auto px-4">
-        {/* ✅ Section Header */}
+        {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-3">
             What Our Clients Say
@@ -42,18 +70,31 @@ const Testimonial = () => {
           </p>
         </div>
 
-        {/* ✅ Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((item, index) => (
-            <motion.div
+        {/* Swiper Carousel */}
+        <Swiper
+          modules={[Pagination, Autoplay, EffectCoverflow]}
+          effect="coverflow"
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView="auto"
+          loop={true}
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          coverflowEffect={{
+            rotate: 30,
+            stretch: 0,
+            depth: 200,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={{ clickable: true }}
+          className="mySwiper"
+        >
+          {testimonials.map((item) => (
+            <SwiperSlide
               key={item.id}
-              className="card bg-base-100 shadow-md p-6 rounded-xl"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.2 }}
-              viewport={{ once: true }}
+              className="max-w-sm bg-base-100 shadow-md p-6 rounded-xl flex flex-col"
             >
-              {/* ✅ User Info */}
+              {/* User Info */}
               <div className="flex items-center gap-4 mb-4">
                 <img
                   src={item.image}
@@ -66,13 +107,13 @@ const Testimonial = () => {
                 </div>
               </div>
 
-              {/* ✅ Review */}
-              <p className="text-base-content/80 italic leading-relaxed">
+              {/* Review */}
+              <p className="text-base-content/80 italic leading-relaxed mt-auto">
                 “{item.review}”
               </p>
-            </motion.div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </section>
   );
