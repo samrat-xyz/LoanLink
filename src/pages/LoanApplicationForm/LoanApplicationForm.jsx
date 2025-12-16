@@ -9,7 +9,7 @@ const LoanApplicationForm = () => {
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const loan = location.state?.loan; // ✅ Loan receive correctly
+  const loan = location.state?.loan; 
 
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +68,7 @@ const LoanApplicationForm = () => {
         title: "Application Submitted!",
         text: "Your loan application is under review.",
       });
-
+      navigate('/dashboard/borrower/my-applied-loan')
       reset();
       
     } catch (err) {
