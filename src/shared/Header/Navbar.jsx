@@ -70,7 +70,7 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      {/* ✅ USER SECTION */}
+      {/*  USER SECTION */}
       <li>
         {user ? (
           <div className="dropdown dropdown-end">
@@ -112,7 +112,7 @@ const Navbar = () => {
         )}
       </li>
 
-      {/* ✅ THEME TOGGLE */}
+      {/*  THEME TOGGLE */}
       <li>
         <input
           type="checkbox"
